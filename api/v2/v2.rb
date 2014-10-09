@@ -1,8 +1,8 @@
 module Todo
-  class V1 < Grape::API
+  class V2 < Grape::API
 
     # API configuration
-    version ['v2','v1'], using: :path, vendor: 'todo', cascade: true
+    version 'v2', using: :path, vendor: 'todo', cascade: true
     format :json
 
     # Exception handling

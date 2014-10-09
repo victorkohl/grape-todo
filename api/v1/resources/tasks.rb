@@ -13,7 +13,7 @@ module Todo
           # POST /
           desc "Creates a task."
           params do
-            requires :all, except: [:done], using: Task::Entity.documentation.except(:id)
+            requires :description
           end
           post do
             status 201
