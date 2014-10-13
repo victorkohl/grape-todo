@@ -39,6 +39,7 @@ class Task
   # Entity
   class Entity < Grape::Entity
     format_with(:simple_id) { |id| id.to_s }
+    format_with(:iso8601) { |date| date.try(:iso8601) }
 
     with_options format_with: :simple_id do
       expose :id,         documentation: { type: String,  desc: "The task ID." }
@@ -48,9 +49,12 @@ class Task
 
     # V2
     with_options if: { version: 'v2' } do
-      expose :due_date,   documentation: { type: Time,    desc: "The task due date." }
       expose :overdue?,   documentation: { type: Boolean, desc: "Whether the task is overdue or not." }, as: :overdue
-      expose :created_at, documentation: { type: Time,    desc: "The task creation date." }
+
+      with_options format_with: :iso8601 do
+        expose :due_date,   documentation: { type: Time,    desc: "The task due date." }
+        expose :created_at, documentation: { type: Time,    desc: "The task creation date." }
+      end
     end
   end
 end

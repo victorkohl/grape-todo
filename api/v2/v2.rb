@@ -7,7 +7,7 @@ module Todo
 
     # Exception handling
     rescue_from Mongoid::Errors::DocumentNotFound do |e|
-      Rack::Response.new('Not found', 404).finish
+      Rack::Response.new({}.to_json, 404).finish
     end
 
     # Helpers
